@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [options, setOptions] = useState(null);
 
@@ -26,7 +28,7 @@ function App() {
   useEffect(() => {
     async function getOptions() {
       try {
-        const response = await axios.get("http://localhost:5000/options");
+        const response = await axios.get(`${API_URL}/options`);
         setOptions(response.data);
       } catch (error) {
         console.log(error);
@@ -51,7 +53,7 @@ function App() {
         return;
       }
       const response = await axios.post(
-        "http://localhost:5000/predict",
+        `${API_URL}/predict`,
         formData
       );
 
@@ -177,7 +179,6 @@ function App() {
           max={options.screen_size.max}
           placeholder="Screen Size"
           value={formData["Screen Size"]}
-          onChange={handleChange}
           name="Screen Size"
           onChange={handleChange}
         />
